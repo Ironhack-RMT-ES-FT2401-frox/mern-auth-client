@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { ThemeContext } from "../../context/theme.context";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import service from "../../services/config.services";
 
 function Signup() {
 
@@ -28,7 +29,8 @@ function Signup() {
     // ... contactar al backend para registrar al usuario aqui
     try {
       
-      await axios.post("http://localhost:5005/api/auth/signup", newUser)
+      // await axios.post("http://localhost:5005/api/auth/signup", newUser)
+      await service.post("/auth/signup", newUser)
 
       navigate("/login")
 

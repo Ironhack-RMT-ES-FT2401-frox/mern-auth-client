@@ -10,6 +10,7 @@ function AuthWrapper(props) {
 
   const [ isLoggedIn, setIsLoggedIn ] = useState(false)
   const [ loggedUserId, setLoggedUserId ] = useState(null)
+  const [ userRole, setUserRole ] = useState(null)
 
   const authenticateUser = async () => {
     const storedToken = localStorage.getItem("authToken")
@@ -23,12 +24,16 @@ function AuthWrapper(props) {
       // Si este punto del codigo ocurre, significa que el token es valido. permitimos acceso
       setIsLoggedIn(true)
       setLoggedUserId(response.data._id) // el id del usuario segun el payload del token
+
+      // opcionalmente agregar el role del payload
+      setUserRole(response.data.role)
       
     } catch (error) {
       console.log(error)
       // hubo un problema con el Token y no valido o no existe
       setIsLoggedIn(false)
       setLoggedUserId(null)
+      setUserRole(null)
     }
   }
 
